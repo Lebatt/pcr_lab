@@ -46,6 +46,12 @@ export class ResultService {
           )) as ResUploadResults;
           return res as ResUploadResults | HttpErrorResponse;
         } catch (error: any) {
+            const notification: Notification = {
+                title: 'Opereation Failure',
+                message: 'Your upload was not successful, please try again!',
+                status: 'alert-danger'
+            }
+            this.notificationService.notification.next(notification);
             throw new HttpErrorResponse(error);
         }
     }
