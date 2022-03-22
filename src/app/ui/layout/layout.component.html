@@ -1,14 +1,23 @@
 <!-- This flex container takes the full height -->
 <div class="d-flex flex-column h-100">
     <app-header></app-header>
+
+    <div *ngIf="notification" class="alert {{notification.status}} alert-dismissible fade show" role="alert">
+      <strong>{{notification.title}}</strong> {{notification.message}}
+      <button type="button" class="btn-close" (click)="dissmissNotification()">x</button>
+    </div>
     <!-- The main area does not shrink, 'pushing down' the footer -->
     <main class="flex-shrink-0">
+      <div *ngIf="loading" class="row justify-content-center pt-3 pb-3">
+        <div class="spinner-border" role="status" >
+          <span class="sr-only" id="loading"></span>
+        </div>
+
+        <h5 class="pl-3">Loading...</h5>
+      </div>
       <!-- This will render the routes -->
       <router-outlet></router-outlet>
     </main>
-    <div *ngIf="loading" class="spinner-border" role="status" >
-      <span class="sr-only" id="loading"></span>
-    </div>
     <!-- This keeps the footer down if the main content does not fill up the space -->
     <footer class="mt-auto">
       <app-footer></app-footer>
